@@ -6,16 +6,18 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.cross.grazercodetest.utils.Constants.DATASTORE_NAME
-import com.cross.grazercodetest.utils.Constants.TOKEN_KEY
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DATASTORE_NAME)
-
 class TokenManager @Inject constructor(private val context: Context) {
+
+    companion object {
+        private const val TOKEN_KEY = "token"
+        private const val DATASTORE_NAME = "app_datastore"
+        val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DATASTORE_NAME)
+    }
 
     private val tokenKey = stringPreferencesKey(TOKEN_KEY)
 

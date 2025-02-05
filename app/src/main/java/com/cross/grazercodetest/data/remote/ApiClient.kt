@@ -1,6 +1,5 @@
 package com.cross.grazercodetest.data.remote
 
-import com.cross.grazercodetest.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +13,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ApiClient {
 
+    private const val BASE_URL = "https://grazer.nw.r.appspot.com/"
+
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit {
@@ -21,7 +22,7 @@ object ApiClient {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
