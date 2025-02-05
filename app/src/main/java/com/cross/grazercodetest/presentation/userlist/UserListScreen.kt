@@ -151,3 +151,49 @@ private fun InitialsAvatar(name: String) {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun UserListScreenPreview() {
+    GrazerCodeTestTheme {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(2) { index ->
+                when (index) {
+                    0 -> UserCardPreview(name = "John Doe", dateOfBirth = 978307200)
+                    1 -> UserCardPreview(name = "Jane Smith", dateOfBirth = 978307200)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun UserCardPreview(name: String, dateOfBirth: Long) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
+        ) {
+            InitialsAvatar(name = name)
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column {
+                Text(text = name)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "DOB: $dateOfBirth",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+    }
+}
