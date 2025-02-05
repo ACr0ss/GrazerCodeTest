@@ -1,4 +1,4 @@
-package com.cross.grazercodetest.ui.navigation
+package com.cross.grazercodetest.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -6,9 +6,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.cross.grazercodetest.ui.login.LoginScreen
-import com.cross.grazercodetest.ui.userlist.UserListScreen
-import com.cross.grazercodetest.ui.userlist.UserListViewModel
+import com.cross.grazercodetest.presentation.login.LoginScreen
+import com.cross.grazercodetest.presentation.userlist.UserListScreen
+import com.cross.grazercodetest.presentation.userlist.UserListViewModel
 
 @Composable
 fun NavGraph(

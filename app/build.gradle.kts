@@ -64,6 +64,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     implementation(libs.navigation.compose)
+    implementation(libs.coil.compose)
     implementation(libs.datastore.preferences)
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)

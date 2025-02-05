@@ -1,4 +1,4 @@
-package com.cross.grazercodetest.ui.theme
+package com.cross.grazercodetest.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

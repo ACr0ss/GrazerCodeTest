@@ -1,9 +1,8 @@
-package com.cross.grazercodetest.ui.userlist
+package com.cross.grazercodetest.presentation.userlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cross.grazercodetest.data.models.User
-import com.cross.grazercodetest.data.models.UserResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,26 +21,20 @@ class UserListViewModel @Inject constructor(
     val users: StateFlow<List<User>?> = _users
 
     init {
-        // Automatically fetch users when the ViewModel is initialized
-        fetchUsers()
+        initUsers()
     }
 
-    /**
-     * Fetches the list of users from the API.
-     */
-    fun fetchUsers() {
+    fun initUsers() {
         viewModelScope.launch {
             try {
-                val token = tokenManager.getToken() ?: return@launch // Ensure a valid token exists
+                val token = tokenManager.getToken() ?: return@launch
                 val response = fetchUsersUseCase(token)
                 if (response.status == 200) {
                     _users.value = response.data.users
                 } else {
-                    // Handle error cases (e.g., invalid token or server error)
                     _users.value = emptyList()
                 }
             } catch (e: Exception) {
-                // Handle network errors or other exceptions
                 _users.value = emptyList()
             }
         }

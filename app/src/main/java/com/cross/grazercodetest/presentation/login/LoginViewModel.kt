@@ -1,4 +1,4 @@
-package com.cross.grazercodetest.ui.login
+package com.cross.grazercodetest.presentation.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
