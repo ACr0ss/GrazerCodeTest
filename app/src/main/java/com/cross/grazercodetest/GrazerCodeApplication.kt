@@ -1,7 +1,7 @@
-package com.cross.grazercodetest.di
+package com.cross.grazercodetest
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class AppComponent : Application()
+class GrazerCodeApplication : Application()
