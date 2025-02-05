@@ -18,6 +18,7 @@ gson = "2.10.1"
 junit = "4.13.2"
 ext-junit = "1.1.5"
 espresso-core = "3.5.1"
+ksp = "2.0.21-1.0.27"
 
 [libraries]
 # AndroidX Core
@@ -66,5 +67,5 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
