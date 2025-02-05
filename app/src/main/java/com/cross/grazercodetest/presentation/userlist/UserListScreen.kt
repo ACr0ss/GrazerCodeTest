@@ -1,12 +1,9 @@
 package com.cross.grazercodetest.presentation.userlist
 
-import android.R.style.Theme
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.cross.grazercodetest.data.models.User
 import androidx.compose.foundation.layout.*
@@ -32,9 +29,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.cross.grazercodetest.presentation.theme.GrazerCodeTestTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 @Composable

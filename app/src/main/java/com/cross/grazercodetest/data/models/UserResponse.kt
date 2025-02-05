@@ -1,4 +1,4 @@
-package com.cross.grazercodetest.data.models;
+package com.cross.grazercodetest.data.models
 
 data class UserResponse(
         val status: Int,
