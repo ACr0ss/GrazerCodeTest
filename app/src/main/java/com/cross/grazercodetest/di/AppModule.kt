@@ -1,12 +1,12 @@
 package com.cross.grazercodetest.di
 
-import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.cross.grazercodetest.data.remote.ApiClient
-import com.cross.grazercodetest.utils.TokenManager
+import com.cross.grazercodetest.domain.usecase.TokenUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -16,8 +16,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideTokenManager(@ApplicationContext context: Context): TokenManager =
-        TokenManager(context)
+    fun provideTokenUseCase(dataStore: DataStore<Preferences>): TokenUseCase =
+        TokenUseCase(dataStore)
 
     @Singleton
     @Provides

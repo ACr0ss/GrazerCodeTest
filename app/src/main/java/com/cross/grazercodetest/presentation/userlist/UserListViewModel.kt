@@ -8,35 +8,38 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import com.cross.grazercodetest.domain.usecase.FetchUsersUseCase
-import com.cross.grazercodetest.utils.TokenManager
+import com.cross.grazercodetest.domain.usecase.FormatDateUseCase
+import com.cross.grazercodetest.domain.usecase.TokenUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class UserListViewModel @Inject constructor(
     private val fetchUsersUseCase: FetchUsersUseCase,
-    private val tokenManager: TokenManager
+    private val tokenUseCase: TokenUseCase,
+    private val formatDateUseCase: FormatDateUseCase
 ) : ViewModel() {
 
     private val _users = MutableStateFlow<List<User>?>(null)
     val users: StateFlow<List<User>?> = _users
 
     init {
-        initUsers()
+        loadUsers()
     }
 
-    fun initUsers() {
+    private fun loadUsers() {
         viewModelScope.launch {
-            try {
-                val token = tokenManager.getToken() ?: return@launch
-                val response = fetchUsersUseCase(token)
-                if (response.status == 200) {
-                    _users.value = response.data.users
-                } else {
-                    _users.value = emptyList()
+            tokenUseCase.getTokenFlow().collect { token ->
+                if (token != null) {
+                    try {
+                        val response = fetchUsersUseCase(token)
+                        _users.value = response.data.users
+                    } catch (e: Exception) {
+                        _users.value = emptyList()
+                    }
                 }
-            } catch (e: Exception) {
-                _users.value = emptyList()
             }
         }
     }
+
+    fun formatDate(timestamp: Long): String = formatDateUseCase(timestamp)
 }
