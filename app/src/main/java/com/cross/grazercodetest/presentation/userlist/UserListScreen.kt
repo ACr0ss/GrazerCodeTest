@@ -25,14 +25,20 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.cross.grazercodetest.domain.usecase.FetchUsersUseCase
+import com.cross.grazercodetest.domain.usecase.FormatDateUseCase
 import com.cross.grazercodetest.presentation.theme.GrazerCodeTestTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 @Composable
-fun UserListScreen(navController: NavController, viewModel: UserListViewModel) {
+fun UserListScreen(
+    navController: NavController,
+    viewModel: UserListViewModel = viewModel()
+) {
     val systemUiController = rememberSystemUiController()
     val statusBarColor = MaterialTheme.colorScheme.surface
     val users by viewModel.users.collectAsState(initial = null)
@@ -47,7 +53,7 @@ fun UserListScreen(navController: NavController, viewModel: UserListViewModel) {
             .statusBarsPadding()
     ) {
         users?.let { nonNullUsers ->
-            UserListContent(users = nonNullUsers)
+            UserListContent(users = nonNullUsers, viewModel = viewModel)
         } ?: run {
             Box(
                 modifier = Modifier.fillMaxSize(),
@@ -60,20 +66,23 @@ fun UserListScreen(navController: NavController, viewModel: UserListViewModel) {
 }
 
 @Composable
-fun UserListContent(users: List<User>) {
+fun UserListContent(
+    users: List<User>,
+    viewModel: UserListViewModel
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(users) { user ->
-            UserCard(user = user)
+            UserCard(user = user, viewModel = viewModel)
         }
     }
 }
 
 @Composable
-private fun UserCard(user: User) {
+private fun UserCard(user: User, viewModel: UserListViewModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,7 +126,7 @@ private fun UserCard(user: User) {
                 Text(text = user.name)
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "DOB: ${user.date_of_birth}",
+                    text = "DOB: ${viewModel.formatDate(user.date_of_birth)}",
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -156,8 +165,14 @@ fun UserListScreenPreview() {
         ) {
             items(2) { index ->
                 when (index) {
-                    0 -> UserCardPreview(name = "John Doe", dateOfBirth = 978307200)
-                    1 -> UserCardPreview(name = "Jane Smith", dateOfBirth = 978307200)
+                    0 -> UserCardPreview(
+                        name = "John Doe",
+                        dateOfBirth = "Jan 01, 2001"
+                    )
+                    1 -> UserCardPreview(
+                        name = "Jane Smith",
+                        dateOfBirth = "Dec 31, 2000"
+                    )
                 }
             }
         }
@@ -165,7 +180,10 @@ fun UserListScreenPreview() {
 }
 
 @Composable
-private fun UserCardPreview(name: String, dateOfBirth: Long) {
+private fun UserCardPreview(
+    name: String,
+    dateOfBirth: String
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
